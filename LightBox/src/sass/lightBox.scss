@@ -1,6 +1,86 @@
-$color: #000;
-$color2: #ccc;
-#ha {
-	background-color: $color;
-	border-color: $color2;
+// variable statement
+$maskCor: #000;
+$zIndex: 9999;
+
+%hundred {
+	width: 100%;
+	height: 100%;
+}
+@mixin opacity($num: 1) {
+	opacity: $num;
+	filter: alpha(opacity=50);
+}
+
+// style
+#lightbox_mask {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	background-color: $maskCor;
+	z-index: $zIndex;
+	@include opacity(0.5);
+	@extend %hundred;
+}
+#lightbox_view {
+	position: fixed;
+	left: 0px;
+	right: 0px;
+	top: 0px;
+	bottom: 0px;
+	margin: auto;
+	max-width: 90%;
+	max-height: 90%;
+	min-width: 50px;
+	min-height: 50px;
+	border: 10px solid #fff;
+	border-radius: 10px;
+	z-index: $zIndex + 1;
+
+
+	.lightbox_pic_area {
+		@extend %hundred;
+	}
+	.lightbox_pic {
+		@extend %hundred;
+	}
+	.lightbox_caption_area {
+		position: absolute;
+		left: 0px;
+		bottom: 0px;
+		width: 100%;
+		height: 45px;
+		background-color: $maskCor;
+		overflow: hidden;
+		@include opacity(0.5);
+	}
+	.lightbox_caption {
+		display: inline-block;
+		width: 91%;
+		padding-left: 20px;
+		color: #fff;
+		overflow: hidden;
+	}
+	.lightbpx_pic_desc {
+		margin: 0px;
+		height: 30px;
+		line-height: 30px;
+		font-size: 16px;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
+	}
+	.lightbox_pic_idx {
+		display: block;
+		height: 15px;
+		line-height: 15px;
+		font-size: 14px;
+	}
+	.lightbox_close {
+		display: inline-block;
+		width: 8%;
+		height: 100%;
+		margin-left: -20px;
+		background: url(../../image/icon/close.png) no-repeat center center;
+		cursor: pointer;
+	}
 }

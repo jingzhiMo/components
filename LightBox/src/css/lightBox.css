@@ -1,6 +1,73 @@
-#ha {
+#lightbox_mask, #lightbox_view .lightbox_pic_area, #lightbox_view .lightbox_pic {
+  width: 100%;
+  height: 100%;
+}
+
+#lightbox_mask {
+  position: fixed;
+  left: 0px;
+  top: 0px;
   background-color: #000;
-  border-color: #ccc;
+  z-index: 9999;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
+
+#lightbox_view {
+  position: fixed;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  margin: auto;
+  max-width: 90%;
+  max-height: 90%;
+  min-width: 50px;
+  min-height: 50px;
+  border: 10px solid #fff;
+  border-radius: 10px;
+  z-index: 10000;
+}
+#lightbox_view .lightbox_caption_area {
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  width: 100%;
+  height: 45px;
+  background-color: #000;
+  overflow: hidden;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
+#lightbox_view .lightbox_caption {
+  display: inline-block;
+  width: 91%;
+  padding-left: 20px;
+  color: #fff;
+  overflow: hidden;
+}
+#lightbox_view .lightbpx_pic_desc {
+  margin: 0px;
+  height: 30px;
+  line-height: 30px;
+  font-size: 16px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+#lightbox_view .lightbox_pic_idx {
+  display: block;
+  height: 15px;
+  line-height: 15px;
+  font-size: 14px;
+}
+#lightbox_view .lightbox_close {
+  display: inline-block;
+  width: 8%;
+  height: 100%;
+  margin-left: -20px;
+  background: url(../../image/icon/close.png) no-repeat center center;
+  cursor: pointer;
 }
 
 /*# sourceMappingURL=lightBox.css.map */
