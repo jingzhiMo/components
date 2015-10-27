@@ -27,13 +27,41 @@ module.exports = function(grunt) {
 				}]
 			}
 		},
+		jshint: {
+			hint: {
+				options: {
+					"curly": true,
+					"eqeqeq": true,
+					"newcap": true,
+					"noarg": true,
+					"sub": true,
+					"undef": true,
+					"boss": true,
+					"globals": {
+						"$": true,
+						"jQuery": true,
+						"document": true,
+						"module": true,
+						"window": true
+					}
+				},
+				files: {
+					src: ['<%= meta.path.src%>js/*.js']
+				}
+			}
+		},
 		watch: {
 			compileSass: {
 				files: ['<%= meta.path.src %>sass/*.scss'],
 				tasks: ['sass']
+			},
+			jsHint: {
+				files: ['<%= meta.path.src%>js/*.js'],
+				tasks: ['jshint']
 			}
 		}
 	});
 	grunt.registerTask('live', ['watch']);
 	grunt.registerTask('comp', ['sass']);
+	grunt.registerTask('hint', ['jshint']);
 };
