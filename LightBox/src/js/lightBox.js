@@ -45,10 +45,11 @@
 							'</div>' +
 							'<i class="lightbox_close" title="关闭"></i>' +
 						'</div>',
-				$view = $(view);
-
-			$(body).append($mask)
-				   .append($view);
+				$view = $(view),
+				fragment = doc.createDocumentFragment();
+			fragment.appendChild($mask[0]);
+			fragment.appendChild($view[0]);
+			body.appendChild(fragment);
 
 		},
 		// 点击小图后，显示大图的事件处理
@@ -66,11 +67,11 @@
 		}
 	};
 
-	if(module.exports) {
-		module.exports.LightBox = LightBox;
-	} else {
-		window.LightBox = LightBox;
-	}
+	// if(module) { 
+	// 	module.exports.LightBox = LightBox;
+	// } else {
+	// 	window.LightBox = LightBox;
+	// }
 	// module.exports ? module.exports.LightBox = LightBox : window.LightBox = LightBox;
-
+	window.LightBox = LightBox;
 })(jQuery);
