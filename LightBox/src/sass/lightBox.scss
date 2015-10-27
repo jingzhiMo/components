@@ -39,9 +39,31 @@ $zIndex: 9999;
 
 	.lightbox_pic_area {
 		@extend %hundred;
+		position: relative;
 	}
 	.lightbox_pic {
 		@extend %hundred;
+	}
+	.lightbox_arrow {
+		position: absolute;
+		width: 40%;
+		height: 100%;
+		top: 0px;
+		background-repeat: no-repeat;
+
+		&:hover {
+			cursor: pointer;
+			// background-color: #ccc;
+			// @include opacity(0.2);
+		}
+	}
+	.lightbox_prev_arrow {
+		left: 0px;
+		background: url('../../image/icon/prev.png') left center no-repeat;
+	}
+	.lightbox_next_arrow {
+		right: 0px;
+		background: url('../../image/icon/next.png') right center no-repeat;
 	}
 	.lightbox_caption_area {
 		position: absolute;
@@ -76,10 +98,12 @@ $zIndex: 9999;
 		font-size: 14px;
 	}
 	.lightbox_close {
+		position: absolute;
+		right: 0px;
+		bottom: 0px;
 		display: inline-block;
-		width: 8%;
-		height: 100%;
-		margin-left: -20px;
+		width: 50px;;
+		height: 45px;
 		background: url(../../image/icon/close.png) no-repeat center center;
 		cursor: pointer;
 	}
