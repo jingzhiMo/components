@@ -1,0 +1,20 @@
+{
+  "name": "LightBox",
+  "version": "0.1.0",
+  "homepage": "https://github.com/jingzhiMo/components",
+  "authors": [
+    "jingzhimo <mojingzhi.mail@gmail.com>"
+  ],
+  "main": "index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4"
+  }
+}
