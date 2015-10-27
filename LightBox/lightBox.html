@@ -7,6 +7,13 @@
 </head>
 <body>
 	
+	<section id="img_box">
+		<img src="./image/1.png" alt="" class="lightbox_img" data-role="lightbox" data-src="./image/1.png" data-group="naturo1" data-id="img1" data-caption="这是图片的描述">
+		<img src="./image/1.png" alt="" class="lightbox_img" data-role="lightbox" data-src="./image/1.png" data-group="naturo1" data-id="img3" data-caption="这是图片的描述">
+		<img src="./image/2.png" alt="" class="lightbox_img" data-role="lightbox" data-src="./image/2.png" data-group="naturo2" data-id="img2" data-caption="这是图片的描述">
+		<img src="./image/2.png" alt="" class="lightbox_img" data-role="lightbox" data-src="./image/2.png" data-group="naturo2" data-id="img4" data-caption="这是图片的描述">
+	</section>
+
 	<!-- <div id="lightbox_mask"></div>
 	<div id="lightbox_view">
 		<div class="lightbox_pic_area">
@@ -27,7 +34,7 @@
 	<script src = "./src/js/lightBox.js"></script>
 	<script>
 		var lightbox = new LightBox({
-			boxes: [document.body]
+			boxes: [$(document.body)]
 		});
 	</script>
 </body>

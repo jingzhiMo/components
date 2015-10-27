@@ -42,7 +42,8 @@ module.exports = function(grunt) {
 						"jQuery": true,
 						"document": true,
 						"module": true,
-						"window": true
+						"window": true,
+						"alert": true
 					}
 				},
 				files: {

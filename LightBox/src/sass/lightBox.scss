@@ -108,3 +108,18 @@ $zIndex: 9999;
 		cursor: pointer;
 	}
 }
+
+// 下面的样式是页面显示小图片的样式
+#img_box {
+
+	.lightbox_img {
+		width: 200px;
+		height: 200px;
+		padding: 10px;
+		margin: 0 20px;
+		background-color: #ccc;
+		border: 1px solid #ccc;
+		border-radius: 10px;
+		cursor: pointer;
+	}
+}

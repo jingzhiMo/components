@@ -16,14 +16,17 @@
 		} else {
 
 			this.options = options;
-			this.createLightbox();
+			// this.createLightbox();
+			this.bindEvent();
 		}
 	};
 
 	LightBox.prototype = {
 		constructor: LightBox,
+		group: {},
+		currentGroup: '',
 		// 代理事件
-		proxyEvent: function(fn, that) {
+		proxyEvent: function(that, fn) {
 			return function() {
 				return fn.apply(that, arguments);
 			};
@@ -53,25 +56,45 @@
 
 		},
 		// 点击小图后，显示大图的事件处理
-		showLightbox: function(ev) { 
+		showLightbox: function(ev) {
 
+			var target = ev.target || ev.srcElement,
+				dataset = target.dataset,
+				group = this.group,
+				groupName = target.dataset.group,
+				index, 	// 点击的图片在该组的下标
+				src,	// 点击图片大图的src
+				caption,// 点击图片的caption
+				len;	// 点击的图片所在组的长度
+
+
+			// 连续点击的图片属于同一个组别
+			// if(this.currentGroup === groupName) {
+			// 	index = group[groupName].index(target) + 1;
+			// 	len = group[groupName].length;
+			// 	src = dataset.src;
+			// 	caption = dataset.caption;
+			// }
+
+			// 如果不存在这样的组别，就添加到group上去，调用可以不用多次查找dom
+			if(!group[groupName]) {
+				group[groupName] = $('.lightbox_img[data-role=lightbox][data-group=' + groupName +']');
+			}
+			window.console.log(this.group);
 		},
 		bindEvent: function() {
 			var options = this.options,
-				boxes = options.boxes;
+				boxes = $(options.boxes);
 
 			for(var i = 0, len = boxes.length; i < len; i++) {
 
-				boxes[i].on('click', '.lightbox_img', this.proxyEvent(this, this.showLightbox));
+				boxes[i].on('click', '.lightbox_img[data-role=lightbox]', this.proxyEvent(this, this.showLightbox));
 			}
+
+			// 阻止冒泡
+			return false;
 		}
 	};
 
-	// if(module) { 
-	// 	module.exports.LightBox = LightBox;
-	// } else {
-	// 	window.LightBox = LightBox;
-	// }
-	// module.exports ? module.exports.LightBox = LightBox : window.LightBox = LightBox;
 	window.LightBox = LightBox;
 })(jQuery);
