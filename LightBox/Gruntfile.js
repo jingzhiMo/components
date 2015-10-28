@@ -43,7 +43,9 @@ module.exports = function(grunt) {
 						"document": true,
 						"module": true,
 						"window": true,
-						"alert": true
+						"alert": true,
+						"console": true,
+						"Image": true
 					}
 				},
 				files: {

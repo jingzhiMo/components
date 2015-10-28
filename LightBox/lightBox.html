@@ -8,10 +8,10 @@
 <body>
 	
 	<section id="img_box">
-		<img src="./image/1.png" alt="" class="lightbox_img" data-role="lightbox" data-src="./image/1.png" data-group="naturo1" data-id="img1" data-caption="这是图片的描述">
-		<img src="./image/1.png" alt="" class="lightbox_img" data-role="lightbox" data-src="./image/1.png" data-group="naturo1" data-id="img3" data-caption="这是图片的描述">
-		<img src="./image/2.png" alt="" class="lightbox_img" data-role="lightbox" data-src="./image/2.png" data-group="naturo2" data-id="img2" data-caption="这是图片的描述">
-		<img src="./image/2.png" alt="" class="lightbox_img" data-role="lightbox" data-src="./image/2.png" data-group="naturo2" data-id="img4" data-caption="这是图片的描述">
+		<img src="./image/1.png" alt="" class="lightbox_img" data-role="lightbox" data-src="http://h.hiphotos.baidu.com/image/pic/item/9d82d158ccbf6c812f9fe0e1be3eb13533fa400b.jpg" data-group="naturo1" data-id="img1" data-caption="这是图片的描述">
+		<img src="./image/1.png" alt="" class="lightbox_img" data-role="lightbox" data-src="http://img4.duitang.com/uploads/item/201205/05/20120505171532_sWJvG.jpeg" data-group="naturo1" data-id="img3" data-caption="这是图片的描述">
+		<img src="./image/2.png" alt="" class="lightbox_img" data-role="lightbox" data-src="http://image.tianjimedia.com/uploadImages/2013/235/K1W161622AI3.jpg" data-group="naturo2" data-id="img2" data-caption="这是图片的描述">
+		<img src="./image/2.png" alt="" class="lightbox_img" data-role="lightbox" data-src="http://e.hiphotos.baidu.com/image/pic/item/a9d3fd1f4134970a1caaa23097cad1c8a6865dd7.jpg" data-group="naturo2" data-id="img4" data-caption="这是图片的描述">
 	</section>
 
 	<!-- <div id="lightbox_mask"></div>
@@ -33,9 +33,12 @@
 	<script src = "./bower_components/jquery/dist/jquery.min.js"></script>
 	<script src = "./src/js/lightBox.js"></script>
 	<script>
-		var lightbox = new LightBox({
-			boxes: [$(document.body)]
-		});
+		// var lightbox = new LightBox({
+		// 	boxes: [$(document.body)]
+		// });
+	init({
+		boxes: [$(document.body)]
+	});
 	</script>
 </body>
 </html>
