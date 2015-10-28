@@ -2,7 +2,7 @@
 
 	var doc = document,
 		body = doc.body,
-		$mask, $view, instance,$lightboxPic,$loadingPic,
+		$mask, $view, instance,$lightboxPic,$loadingPic,$lightboxPicArea,$caption,
 		maxWidth = window.innerWidth * 0.9 - 20,
 		maxHeight = window.innerHeight * 0.9 - 20;
 
@@ -61,6 +61,8 @@
 			$mask = $('<div id="lightbox_mask"></div>');
 			$lightboxPic = $view.find('.lightbox_pic');
 			$loadingPic = $view.find('.lightbox_loading');
+			$lightboxPicArea = $view.children('.lightbox_pic_area');
+			$caption = $view.find('.lightbox_caption');
 
 			fragment.appendChild($mask[0]);
 			fragment.appendChild($view[0]);
@@ -75,9 +77,7 @@
 				that = this;
 			newImg.src = src;
 			newImg.onload = function() {
-				window.setTimeout(function() {
-					that.showImg(target, newImg);
-				}, 3000);
+				that.showImg(target, newImg);
 			};
 
 			$mask.show();
@@ -86,22 +86,28 @@
 		// 点击小图后，显示大图的事件处理
 		showImg: function(target, img) {
 
-			// var target = ev.target || ev.srcElement,
-			// 	dataset = target.dataset,
-			// 	group = this.group,
-			// 	groupName = target.dataset.group,
-			// 	index, 	// 点击的图片在该组的下标
-			// 	src = dataset.src,	// 点击图片大图的src
-			// 	caption,// 点击图片的caption
-			// 	len;	// 点击的图片所在组的长度
+			var	dataset = target.dataset,
+				group = this.group,
+				groupName = dataset.group,
+				index, 						// 点击的图片在该组的下标
+				caption = dataset.caption,	// 点击图片的caption
+				len;						// 点击的图片所在组的长度
 
 			var width = img.width > maxWidth ? maxWidth : img.width,
 				height = img.height > maxHeight ? maxHeight : img.height;
 
-			
+			// 如果不存在这样的组别，就添加到group上去，调用可以不用多次查找dom
+			if(!group[groupName]) {
+				group[groupName] = $('.lightbox_img[data-role=lightbox][data-group=' + groupName +']');
+			}
+
+			index = group[groupName].index(target) + 1;
+			len = group[groupName].length;
+
 			$loadingPic.addClass('hide');
 
-			$view.find('.lightbox_pic_area').animate({
+			// 渐变显示图片的大小
+			$lightboxPicArea.animate({
 				'width'	: width + 'px',
 				'height' : height + 'px'
 			}, 500, 'linear', function() {
@@ -116,6 +122,10 @@
 					.removeClass('hide');
 			});
 
+			// 显示caption
+			$caption.children('p').html(caption);
+			$caption.children('span').html(index + '  of  ' + len);
+
 			// 连续点击的图片属于同一个组别
 			// if(this.currentGroup === groupName) {
 			// 	index = group[groupName].index(target) + 1;
@@ -125,9 +135,9 @@
 			// }
 
 			// 如果不存在这样的组别，就添加到group上去，调用可以不用多次查找dom
-			// if(!group[groupName]) {
-			// 	group[groupName] = $('.lightbox_img[data-role=lightbox][data-group=' + groupName +']');
-			// }
+			if(!group[groupName]) {
+				group[groupName] = $('.lightbox_img[data-role=lightbox][data-group=' + groupName +']');
+			}
 			// window.console.log(this.group);
 		},
 		// 显示loading图片
