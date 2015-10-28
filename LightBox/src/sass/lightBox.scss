@@ -62,11 +62,18 @@ $zIndex: 9999;
 		top: 0px;
 		bottom: 0px;
 		margin: auto;
+		&.hide {
+			display: none;
+		}
 	}
 	.lightbox_pic {
 		display: none;
 		width: 0px;
-		height: 0px;;
+		height: 0px;
+
+		&.hide {
+			visibility: hidden;
+		}
 	}
 	.lightbox_arrow {
 		position: absolute;

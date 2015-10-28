@@ -49,7 +49,7 @@ module.exports = function(grunt) {
 					}
 				},
 				files: {
-					src: ['<%= meta.path.src%>js/*.js']
+					src: ['<%= meta.path.src%>js/lightBox.js']
 				}
 			}
 		},

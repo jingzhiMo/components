@@ -2,7 +2,7 @@
 
 	var doc = document,
 		body = doc.body,
-		$mask, $view, instance,
+		$mask, $view, instance,$lightboxPic,$loadingPic,
 		maxWidth = window.innerWidth * 0.9 - 20,
 		maxHeight = window.innerHeight * 0.9 - 20;
 
@@ -59,20 +59,25 @@
 
 			$view = $(view);
 			$mask = $('<div id="lightbox_mask"></div>');
+			$lightboxPic = $view.find('.lightbox_pic');
+			$loadingPic = $view.find('.lightbox_loading');
+
 			fragment.appendChild($mask[0]);
 			fragment.appendChild($view[0]);
 			body.appendChild(fragment);
 			this.isNew = false;
 		},
 		// 加载图片
-		loadingImg: function(ev) {
+		loadImg: function(ev) {
 			var target = ev.target || ev.srcElement,
 				src = target.dataset.src,
 				newImg = new Image(),
 				that = this;
 			newImg.src = src;
 			newImg.onload = function() {
-				that.showImg(target, newImg);
+				window.setTimeout(function() {
+					that.showImg(target, newImg);
+				}, 3000);
 			};
 
 			$mask.show();
@@ -90,20 +95,26 @@
 			// 	caption,// 点击图片的caption
 			// 	len;	// 点击的图片所在组的长度
 
-			console.log(target);
-			console.log(img.width > maxWidth ? maxWidth : img.width);
-			console.log(img.height > maxHeight ? maxHeight : img.height);
-
 			var width = img.width > maxWidth ? maxWidth : img.width,
 				height = img.height > maxHeight ? maxHeight : img.height;
-			var $lightbox_pic = $view.find('.lightbox_pic');
-			$view.find('.lightbox_loading').hide();
-			$lightbox_pic.transition({
+
+			
+			$loadingPic.addClass('hide');
+
+			$view.find('.lightbox_pic_area').animate({
 				'width'	: width + 'px',
 				'height' : height + 'px'
 			}, 500, 'linear', function() {
-				$(this).attr('src', img.src);
-			}).fadeIn(300);
+
+				$lightboxPic
+					.attr('src', img.src)
+					.css({
+						'width': width + 'px',
+						'height' : height + 'px'
+					})
+					.show()
+					.removeClass('hide');
+			});
 
 			// 连续点击的图片属于同一个组别
 			// if(this.currentGroup === groupName) {
@@ -119,13 +130,18 @@
 			// }
 			// window.console.log(this.group);
 		},
+		// 显示loading图片
+		showLoading: function() {
+			$lightboxPic.addClass('hide');
+			$loadingPic.removeClass('hide');
+		},
 		bindEvent: function() {
 			var options = this.options,
 				boxes = $(options.boxes);
 
 			for(var i = 0, len = boxes.length; i < len; i++) {
 
-				boxes[i].on('click', '.lightbox_img[data-role=lightbox]', this.proxyEvent(this, this.loadingImg));
+				boxes[i].on('click', '.lightbox_img[data-role=lightbox]', this.proxyEvent(this, this.loadImg));
 			}
 
 			// 为关闭按钮和mask层绑定事件
@@ -133,7 +149,8 @@
 
 				$mask.hide();
 				$view.hide();
-
+				$lightboxPic.addClass('hide');
+				$loadingPic.removeClass('hide');
 			});
 
 			// 阻止冒泡
