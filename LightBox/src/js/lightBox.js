@@ -38,12 +38,12 @@
 		// 创建lightbox
 		createLightbox: function() {
 
-			if(!this.isNew) return;
+			if(!this.isNew) {return;}
 
 			var view = '<div id="lightbox_view">' +
 						'<div class="lightbox_pic_area">' +
 							'<img class="lightbox_loading" src="./image/icon/loading.gif" alt="">' +
-							'<img class="lightbox_pic" src="./image/1.png" alt="">' +
+							'<img class="lightbox_pic" src alt="">' +
 							'<span class="lightbox_arrow lightbox_prev_arrow" title="上一张"></span>' +
 							'<span class="lightbox_arrow lightbox_next_arrow" title="下一张"></span>' +
 						'</div>' +
@@ -68,15 +68,15 @@
 		loadingImg: function(ev) {
 			var target = ev.target || ev.srcElement,
 				src = target.dataset.src,
-				newImg = new Image();
-			newImg.src = src,
-			that = this;
+				newImg = new Image(),
+				that = this;
+			newImg.src = src;
 			newImg.onload = function() {
 				that.showImg(target, newImg);
 			};
 
-			$mask.show(300);
-			$view.show(500);
+			$mask.show();
+			$view.show();
 		},
 		// 点击小图后，显示大图的事件处理
 		showImg: function(target, img) {
@@ -93,6 +93,17 @@
 			console.log(target);
 			console.log(img.width > maxWidth ? maxWidth : img.width);
 			console.log(img.height > maxHeight ? maxHeight : img.height);
+
+			var width = img.width > maxWidth ? maxWidth : img.width,
+				height = img.height > maxHeight ? maxHeight : img.height;
+			var $lightbox_pic = $view.find('.lightbox_pic');
+			$view.find('.lightbox_loading').hide();
+			$lightbox_pic.transition({
+				'width'	: width + 'px',
+				'height' : height + 'px'
+			}, 500, 'linear', function() {
+				$(this).attr('src', img.src);
+			}).fadeIn(300);
 
 			// 连续点击的图片属于同一个组别
 			// if(this.currentGroup === groupName) {
