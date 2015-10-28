@@ -29,6 +29,7 @@
 		isNew: true,
 		group: {},
 		currentGroup: '',
+		currentIndex: -1,
 		// 代理事件
 		proxyEvent: function(that, fn) {
 			return function() {
@@ -71,7 +72,7 @@
 		},
 		// 加载图片
 		loadImg: function(ev) {
-			var target = ev.target || ev.srcElement,
+			var target = ev.target || ev.srcElement || ev,
 				src = target.dataset.src,
 				newImg = new Image(),
 				that = this;
@@ -110,7 +111,7 @@
 			$lightboxPicArea.animate({
 				'width'	: width + 'px',
 				'height' : height + 'px'
-			}, 500, 'linear', function() {
+			}, 500, 'linear', this.proxyEvent(this, function() {
 
 				$lightboxPic
 					.attr('src', img.src)
@@ -120,7 +121,9 @@
 					})
 					.show()
 					.removeClass('hide');
-			});
+					this.currentIndex = index - 1;
+					this.currentGroup = groupName;
+			}));
 
 			// 显示caption
 			$caption.children('p').html(caption);
@@ -145,6 +148,22 @@
 			$lightboxPic.addClass('hide');
 			$loadingPic.removeClass('hide');
 		},
+		// 下一张
+		nextImg: function() {
+			var group = this.group[this.currentGroup],
+				idx = this.currentIndex + 1 > group.length  ? group.length : this.currentIndex + 1;
+			var target = this.group[this.currentGroup][idx];
+			this.showLoading();
+			this.loadImg(target);
+		},
+		// 上一张
+		prevImg: function() {
+			var group = this.group[this.currentGroup],
+				idx = this.currentIndex - 1 < 0  ? 0 : this.currentIndex - 1;
+			var target = this.group[this.currentGroup][idx];
+			this.showLoading();
+			this.loadImg(target);
+		},
 		bindEvent: function() {
 			var options = this.options,
 				boxes = $(options.boxes);
@@ -163,6 +182,8 @@
 				$loadingPic.removeClass('hide');
 			});
 
+			$view.on('click', '.lightbox_prev_arrow', this.proxyEvent(this, this.prevImg));
+			$view.on('click', '.lightbox_next_arrow', this.proxyEvent(this, this.nextImg));
 			// 阻止冒泡
 			return false;
 		}
