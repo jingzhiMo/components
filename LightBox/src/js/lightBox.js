@@ -174,6 +174,23 @@
 			this.showLoading();
 			this.loadImg(target);
 		},
+		// 关闭弹出框
+		close: function(ev) {
+
+			var keyCode = ev.keyCode;
+			// 如果按了键盘，但是键盘不是按了esc
+			if(keyCode !== undefined && keyCode !== 27) {
+
+				return;
+			}
+
+			$mask.hide();
+			$view.hide();
+			$lightboxPic.addClass('hide');
+			$loadingPic.removeClass('hide');
+
+			return false;
+		},
 		bindEvent: function() {
 			var options = this.options,
 				boxes = $(options.boxes);
@@ -184,13 +201,8 @@
 			}
 
 			// 为关闭按钮和mask层绑定事件
-			$mask.add($view.find('.lightbox_close')).on('click', function() {
-
-				$mask.hide();
-				$view.hide();
-				$lightboxPic.addClass('hide');
-				$loadingPic.removeClass('hide');
-			});
+			$mask.add($view.find('.lightbox_close')).on('click', this.proxyEvent(this, this.close));
+			$(document).on('keyup', this.proxyEvent(this, this.close));
 
 			$view.on('click', '.lightbox_prev_arrow', this.proxyEvent(this, this.prevImg));
 			$view.on('click', '.lightbox_next_arrow', this.proxyEvent(this, this.nextImg));
@@ -200,10 +212,16 @@
 	};
 
 	// 暴露给外面方法的初始化方法
-	function init(options) {
-		return instance ? instance : new LightBox(options);
-	}
-
-	window.init = init;
+	window.lightbox = {
+		init: function init(options) {
+			instance =  instance ? instance : new LightBox(options);
+		},
+		getGroupByName: function(groupName) {
+			return instance.group[groupName];
+		},
+		setGroupByName: function(groupName, group) {
+			instance.group[groupName] = group;
+		}
+	};
 
 })(jQuery);

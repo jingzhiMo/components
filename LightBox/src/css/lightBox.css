@@ -121,7 +121,7 @@
   cursor: pointer;
 }
 
-#img_box .lightbox_img {
+#img_box .lightbox_img, #img_box2 .lightbox_img {
   width: 200px;
   height: 200px;
   padding: 10px;
