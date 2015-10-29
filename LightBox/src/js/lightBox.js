@@ -193,7 +193,7 @@
 		},
 		bindEvent: function() {
 			var options = this.options,
-				boxes = $(options.boxes);
+				boxes = options.boxes ? $(options.boxes) : [$(document)];
 
 			for(var i = 0, len = boxes.length; i < len; i++) {
 
