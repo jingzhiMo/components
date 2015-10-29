@@ -87,6 +87,9 @@ $zIndex: 9999;
 			// background-color: #ccc;
 			// @include opacity(0.2);
 		}
+		&.hide {
+			visibility: hidden;
+		}
 	}
 	.lightbox_prev_arrow {
 		left: 0px;

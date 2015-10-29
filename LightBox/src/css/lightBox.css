@@ -66,6 +66,9 @@
 #lightbox_view .lightbox_arrow:hover {
   cursor: pointer;
 }
+#lightbox_view .lightbox_arrow.hide {
+  visibility: hidden;
+}
 #lightbox_view .lightbox_prev_arrow {
   left: 0px;
   background: url("../../image/icon/prev.png") left center no-repeat;

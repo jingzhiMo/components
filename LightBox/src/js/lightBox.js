@@ -2,7 +2,7 @@
 
 	var doc = document,
 		body = doc.body,
-		$mask, $view, instance,$lightboxPic,$loadingPic,$lightboxPicArea,$caption,
+		$mask, $view, instance,$lightboxPic,$loadingPic,$lightboxPicArea,$caption,$next, $prev,
 		maxWidth = window.innerWidth * 0.9 - 20,
 		maxHeight = window.innerHeight * 0.9 - 20;
 
@@ -64,6 +64,8 @@
 			$loadingPic = $view.find('.lightbox_loading');
 			$lightboxPicArea = $view.children('.lightbox_pic_area');
 			$caption = $view.find('.lightbox_caption');
+			$next = $view.find('.lightbox_next_arrow');
+			$prev = $view.find('.lightbox_prev_arrow');
 
 			fragment.appendChild($mask[0]);
 			fragment.appendChild($view[0]);
@@ -111,7 +113,7 @@
 			$lightboxPicArea.animate({
 				'width'	: width + 'px',
 				'height' : height + 'px'
-			}, 500, 'linear', this.proxyEvent(this, function() {
+			}, 200, 'linear', this.proxyEvent(this, function() {
 
 				$lightboxPic
 					.attr('src', img.src)
@@ -123,25 +125,33 @@
 					.removeClass('hide');
 					this.currentIndex = index - 1;
 					this.currentGroup = groupName;
+
+				// 显示caption
+				$caption.children('p').html(caption);
+				$caption.children('span').html(index + '  of  ' + len);
+
+				this.arrowCtrl();
 			}));
 
-			// 显示caption
-			$caption.children('p').html(caption);
-			$caption.children('span').html(index + '  of  ' + len);
+		},
+		// 控制左右箭头的显示与否
+		arrowCtrl: function() {
+			var group = this.group[this.currentGroup],
+				len = group.length,
+				idx = this.currentIndex;
 
-			// 连续点击的图片属于同一个组别
-			// if(this.currentGroup === groupName) {
-			// 	index = group[groupName].index(target) + 1;
-			// 	len = group[groupName].length;
-			// 	src = dataset.src;
-			// 	caption = dataset.caption;
-			// }
+			$prev.removeClass('hide');
+			$next.removeClass('hide');
 
-			// 如果不存在这样的组别，就添加到group上去，调用可以不用多次查找dom
-			if(!group[groupName]) {
-				group[groupName] = $('.lightbox_img[data-role=lightbox][data-group=' + groupName +']');
+			if(idx === 0) {
+
+				$prev.addClass('hide');
 			}
-			// window.console.log(this.group);
+			if(idx + 1 === len) {
+
+				$next.addClass('hide');
+			}
+
 		},
 		// 显示loading图片
 		showLoading: function() {
@@ -151,7 +161,7 @@
 		// 下一张
 		nextImg: function() {
 			var group = this.group[this.currentGroup],
-				idx = this.currentIndex + 1 > group.length  ? group.length : this.currentIndex + 1;
+				idx = this.currentIndex + 1 >= group.length  ? group.length - 1 : this.currentIndex + 1;
 			var target = this.group[this.currentGroup][idx];
 			this.showLoading();
 			this.loadImg(target);
