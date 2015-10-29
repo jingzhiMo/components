@@ -53,6 +53,16 @@ module.exports = function(grunt) {
 				}
 			}
 		},
+		uglify: {
+			jsmin: {
+				options: {
+
+				},
+				files: {
+			        'dist/js/lightBox.min.js': ['src/js/lightBox.js']
+			    }
+			}
+		},
 		watch: {
 			compileSass: {
 				files: ['<%= meta.path.src %>sass/*.scss'],
@@ -65,6 +75,7 @@ module.exports = function(grunt) {
 		}
 	});
 	grunt.registerTask('live', ['watch']);
-	grunt.registerTask('comp', ['sass']);
+	grunt.registerTask('compileScss', ['sass']);
 	grunt.registerTask('hint', ['jshint']);
+	grunt.registerTask('compressJs', ['uglify']);
 };
