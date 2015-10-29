@@ -6,29 +6,18 @@
 	<link rel="stylesheet" href="./src/css/lightBox.css">
 </head>
 <body>
-	
-	<section id="img_box">
-		<img src="./image/1.png" alt="" class="lightbox_img" data-role="lightbox" data-src="http://h.hiphotos.baidu.com/image/pic/item/9d82d158ccbf6c812f9fe0e1be3eb13533fa400b.jpg" data-group="naturo0" data-id="img1" data-caption="这是图片的描述">
-		<img src="./image/1.png" alt="" class="lightbox_img" data-role="lightbox" data-src="http://img4.duitang.com/uploads/item/201205/05/20120505171532_sWJvG.jpeg" data-group="naturo1" data-id="img3" data-caption="这是图片的描述">
-		<img src="./image/2.png" alt="" class="lightbox_img" data-role="lightbox" data-src="http://image.tianjimedia.com/uploadImages/2013/235/K1W161622AI3.jpg" data-group="naturo1" data-id="img2" data-caption="这是图片的描述">
-		<img src="./image/2.png" alt="" class="lightbox_img" data-role="lightbox" data-src="http://e.hiphotos.baidu.com/image/pic/item/a9d3fd1f4134970a1caaa23097cad1c8a6865dd7.jpg" data-group="naturo1" data-id="img4" data-caption="这是图片的描述">
-	</section>
 
-	<!-- <div id="lightbox_mask"></div>
-	<div id="lightbox_view">
-		<div class="lightbox_pic_area">
-			<img class="lightbox_pic" src="./image/1.png" alt="">
-			<span class="lightbox_arrow lightbox_prev_arrow" title="上一张"></span>
-			<span class="lightbox_arrow lightbox_next_arrow" title="下一张"></span>
-		</div>
-		<div class="lightbox_caption_area">
-			<div class="lightbox_caption">
-				<p class="lightbpx_pic_desc">图片的标题什么的</p>
-				<span class="lightbox_pic_idx">1 of 4</span>
-			</div>
-		</div>
-		<i class="lightbox_close" title="关闭"></i>
-	</div> -->
+	<section id="img_box">
+		<h2>一个组只有一张图片</h2>
+		<img src="./image/1.png" alt="" class="lightbox_img" data-role="lightbox" data-src="http://h.hiphotos.baidu.com/image/pic/item/9d82d158ccbf6c812f9fe0e1be3eb13533fa400b.jpg" data-group="naturo0" data-id="img1" data-caption="这是图片的描述1111111111">
+	</section>
+	
+	<section id="img_box2">
+		<h2>一个组有多张图片</h2>
+		<img src="./image/1.png" alt="" class="lightbox_img" data-role="lightbox" data-src="http://img4.duitang.com/uploads/item/201205/05/20120505171532_sWJvG.jpeg" data-group="naturo1" data-id="img3" data-caption="这是图片的描述2222222222">
+		<img src="./image/2.png" alt="" class="lightbox_img" data-role="lightbox" data-src="http://image.tianjimedia.com/uploadImages/2013/235/K1W161622AI3.jpg" data-group="naturo1" data-id="img2" data-caption="这是图片的描述333333">
+		<img src="./image/2.png" alt="" class="lightbox_img" data-role="lightbox" data-src="http://e.hiphotos.baidu.com/image/pic/item/a9d3fd1f4134970a1caaa23097cad1c8a6865dd7.jpg" data-group="naturo1" data-id="img4" data-caption="这是图片的描述44444">
+	</section>
 	
 	<script src = "./bower_components/jquery/dist/jquery.min.js"></script>
 	<script src = "./src/js/lightBox.js"></script>
@@ -36,8 +25,8 @@
 		// var lightbox = new LightBox({
 		// 	boxes: [$(document.body)]
 		// });
-	init({
-		boxes: [$(document.body)]
+	lightbox.init({
+		boxes: [$('#img_box'), $('#img_box2')]
 	});
 	</script>
 </body>
